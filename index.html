@@ -5,29 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>김용문 | 포트폴리오</title>
     <style>
-        /* --- 1. 기본 설정 및 변수 (검보라 테마 적용) --- */
+        /* --- 1. 기본 설정 및 변수 (Deep Navy & Dark Purple 테마) --- */
         :root {
-            /* 포인트 색상: 어두운 보라 배경에서 돋보이는 밝은 라벤더/바이올렛 */
-            --primary-color: #11114f; 
-            
-            /* 포인트 색상 (호버 시): 조금 더 밝은 보라 */
-            --primary-hover: #D4B3FD;
+            /* 텍스트 색상 */
+            --text-color: #F0F4F8;
+            --secondary-text: #94A3B8;
 
-            /* 기본 텍스트 색상: 아주 연한 보라빛 흰색 */
-            --text-color: #EBDFFF;       
+            /* 포인트 컬러: Cyan + Purple */
+            --primary-color: #8B5CF6; 
+            --accent-cyan: #38BDF8; 
             
-            /* 보조 텍스트 색상: 톤 다운된 회보라색 */
-            --secondary-text: #B3A5C7;
+            /* 배경 그라데이션: 깊은 바다 느낌 */
+            --bg-gradient: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #312E81 100%);
 
-            /* 전체 배경색: 아주 깊은 검보라색 (거의 검정에 가까움) */
-            --bg-color: #120C1F;      
+            /* 유리 질감 변수 */
+            --glass-bg: rgba(15, 23, 42, 0.6);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+            --shadow-elevation: 0 10px 30px -10px rgba(2, 6, 23, 0.7);
+            --backdrop-blur: blur(16px);
             
-            /* 카드/헤더 배경색: 기본 배경보다 약간 밝은 딥 퍼플 */
-            --container-bg: #1F1B2D;
-
-            /* 테두리 색상: 은은한 보라색 선 */
-            --border-color: #352F4D;
+            /* 헤더 높이 변수 (스크롤 위치 계산용) */
+            --header-height: 80px; 
         }
+
+        /* ★ 부드러운 이동 핵심 코드 ★ */
+        /* html { 
+            scroll-behavior: smooth;
+            scroll-padding-top: var(--header-height);
+        } */
+
+        /* ===== 추가된 부분 (요청한 작업) ===== */
+        /* body {
+            scroll-behavior: smooth;
+        } */
+
+        section {
+            scroll-margin-top: var(--header-height);
+        }
+        /* ===== 여기까지 ===== */
 
         * {
             box-sizing: border-box;
@@ -37,294 +52,420 @@
 
         body {
             font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
-            line-height: 1.6;
+            line-height: 1.7;
             color: var(--text-color);
-            background-color: var(--bg-color);
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            background-attachment: fixed;
         }
 
-        a { text-decoration: none; color: inherit; }
+        a { text-decoration: none; color: inherit; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         ul { list-style: none; }
 
-        /* --- 2. 레이아웃 & 헤더 --- */
+        /* --- 2. 헤더 (유리 질감) --- */
         header {
-            background-color: var(--container-bg);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6); /* 그림자 조금 더 진하게 */
+            background-color: rgba(15, 23, 42, 0.75);
+            backdrop-filter: var(--backdrop-blur);
             position: sticky;
             top: 0;
             z-index: 1000;
-            padding: 1rem 2rem;
+            height: var(--header-height);
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border-color); /* 보라색 경계선 */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #fff, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         nav ul {
             display: flex;
-            gap: 20px;
+            gap: 30px;
+        }
+
+        nav a {
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--secondary-text);
+            position: relative;
+            cursor: pointer;
         }
 
         nav a:hover {
-            color: var(--primary-color);
-            text-shadow: 0 0 8px rgba(187, 134, 252, 0.4); /* 살짝 빛나는 효과 추가 */
+            color: #fff;
         }
 
-        /* --- 3. 공통 섹션 스타일 --- */
+        nav a::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+
+        nav a:hover::before {
+            width: 100%;
+        }
+
+        /* --- 3. 공통 섹션 --- */
         section {
-            padding: 80px 20px;
-            max-width: 1000px;
+            padding: 100px 20px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
         h2 {
-            font-size: 2rem;
-            margin-bottom: 40px;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
             text-align: center;
-            color: var(--primary-color);
+            color: #fff;
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--primary-color));
+            margin: 15px auto 0;
+            border-radius: 2px;
         }
 
-        /* --- 4. 메인 히어로 섹션 --- */
+        /* --- 4. 히어로 섹션 --- */
         #home {
             text-align: center;
-            padding: 100px 20px;
-            background-color: var(--container-bg);
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
+            padding: 140px 20px 100px;
+            background: radial-gradient(circle at 50% 30%, rgba(56, 189, 248, 0.1), transparent 60%);
         }
 
         #home h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--text-color);
+            font-size: 3.8rem;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            text-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
         #home p {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: var(--secondary-text);
-            margin-bottom: 30px;
+            margin-bottom: 50px;
+            font-weight: 300;
         }
 
         .btn {
-            background-color: var(--primary-color);
-            color: #000000; /* 버튼 글자색을 검정으로 하여 가독성 확보 */
-            padding: 10px 25px;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: all 0.3s ease;
+            background: linear-gradient(135deg, var(--primary-color), #4F46E5);
+            color: #fff;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: inline-block;
+            border: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
         }
 
         .btn:hover { 
-            background-color: var(--primary-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(187, 134, 252, 0.4); /* 보라색 빛 번짐 효과 */
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.6);
+            filter: brightness(1.1);
         }
 
         /* --- 5. 소개 & 스킬 --- */
-        .about-content {
+        .about-container {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.4));
+            backdrop-filter: var(--backdrop-blur);
+            border: var(--glass-border);
+            border-radius: 24px;
+            padding: 60px;
+            box-shadow: var(--shadow-elevation);
             display: flex;
             flex-wrap: wrap;
-            gap: 40px;
-            justify-content: center;
-            color: var(--secondary-text);
-        }
-        
-        .about-content h3 {
-            color: var(--text-color);
-            margin-bottom: 15px;
+            gap: 60px;
         }
 
-        .skills-container {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--accent-cyan);
         }
 
         .skill-tag {
-            background-color: #2A223D; /* 스킬 태그 배경: 어두운 보라 */
-            color: var(--primary-color);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: bold;
-            border: 1px solid var(--border-color);
+            background: rgba(49, 46, 129, 0.6); 
+            color: #E2E8F0;
+            padding: 10px 22px;
+            border-radius: 12px;
+            font-weight: 600;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            display: inline-block;
+            margin: 0 8px 12px 0;
+            transition: all 0.3s;
         }
 
-        /* --- 6. 프로젝트 (카드 디자인) --- */
+        .skill-tag:hover {
+            background: var(--primary-color);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+        }
+
+        /* --- 6. 프로젝트 --- */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
         }
 
         .project-card {
-            background: var(--container-bg);
-            border-radius: 10px;
+            background: var(--glass-bg);
+            backdrop-filter: var(--backdrop-blur);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid var(--border-color);
+            border: var(--glass-border);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(15, 11, 25, 0.8);
-            border-color: var(--primary-color); /* 호버 시 테두리 밝게 */
+            transform: translateY(-12px) scale(1.01);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            background: rgba(30, 27, 75, 0.5);
         }
 
         .card-img {
-            height: 200px;
-            background-color: #181226; /* 이미지 영역 배경 더 어둡게 */
+            height: 240px;
+            background: #0f172a;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--secondary-text);
             font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-img::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.8), transparent);
         }
 
         .card-body {
-            padding: 20px;
+    padding: 30px;
+    position: relative;   /* 추가 */
+    min-height: 200px;    /* 링크 공간 확보 (중요) */
+}
+        
+        .card-body h3 { 
+            font-size: 1.4rem; 
+            margin-bottom: 15px; 
+            color: #fff; 
         }
 
-        .card-body h3 { 
-            margin-bottom: 10px; 
-            color: var(--text-color);
-        }
-        
         .card-body p { 
-            color: var(--secondary-text);
-            margin-bottom: 15px; 
-            font-size: 0.95rem; 
+            color: var(--secondary-text); 
+            margin-bottom: 25px; 
         }
+
+        .project-link {
+    color: var(--accent-cyan);
+    font-weight: 700;
+    position: absolute;   /* 추가 */
+    bottom: 24px;         /* 카드 하단 여백 */
+    left: 30px;           /* 카드 좌측 여백 */
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+        
+        .project-link:hover { gap: 12px; }
 
         /* --- 7. 연락처 & 푸터 --- */
-        .contact-info {
+        .contact-box {
+            background: linear-gradient(135deg, rgba(30, 27, 75, 0.8), rgba(15, 23, 42, 0.8));
+            backdrop-filter: var(--backdrop-blur);
+            border: var(--glass-border);
+            padding: 80px 40px;
             text-align: center;
-            font-size: 1.1rem;
-            color: var(--secondary-text);
-            background-color: var(--container-bg);
-            padding: 40px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-        }
-
-        .contact-info strong {
-            color: var(--text-color);
+            border-radius: 24px;
+            box-shadow: var(--shadow-elevation);
         }
 
         footer {
-            background-color: #0B0911; /* 가장 어두운 배경 (거의 블랙) */
-            color: var(--secondary-text);
+            margin-top: 100px;
+            padding: 40px 0;
             text-align: center;
-            padding: 30px 20px;
-            margin-top: 80px;
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: rgba(255,255,255,0.3);
+            font-size: 0.9rem;
         }
 
-        /* --- 8. 모바일 반응형 --- */
         @media (max-width: 768px) {
-            header { flex-direction: column; gap: 15px; }
-            #home h1 { font-size: 2rem; }
+            #home h1 { font-size: 2.5rem; }
+            section { padding: 80px 20px; }
+            .about-container { padding: 30px; }
         }
-        
-        html { scroll-behavior: smooth; }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">Kim's Portfolio</div>
-        <nav>
-            <ul>
-                <li><a href="#home">홈</a></li>
-                <li><a href="#about">소개</a></li>
-                <li><a href="#projects">프로젝트</a></li>
-                <li><a href="#contact">연락처</a></li>
-            </ul>
-        </nav>
-    </header>
+<header>
+    <div class="logo">Kim's Portfolio</div>
+    <nav>
+        <ul>
+            <li><a href="#home">홈</a></li>
+            <li><a href="#about">소개</a></li>
+            <li><a href="#projects">프로젝트</a></li>
+            <li><a href="#contact">연락처</a></li>
+        </ul>
+    </nav>
+</header>
 
-    <section id="home">
-        <h1>안녕하세요,<br>웹 개발자 김용문입니다.</h1>
-        <p>사용자 경험을 중요시하며, 깔끔한 코드를 작성하는 것을 좋아합니다.</p>
-        <a href="#projects" class="btn">프로젝트 보기</a>
-    </section>
+<section id="home">
+    <h1>안녕하세요,<br>보안 컨설턴트 김용문입니다.</h1>
+    <p>깊이 있는 고민으로 사용자에게 최적의 경험을 선사합니다.<br>
+       직관적이고 아름다운 인터페이스를 구현하는 데 열정을 가지고 있습니다.</p>
+    <a href="#projects" class="btn">프로젝트 보기</a>
+</section>
 
-    <section id="about">
-        <h2>👋 소개 & 스킬</h2>
-        <div class="about-content">
-            <div style="flex: 1; min-width: 300px;">
-                <h3>"꾸준히 성장하는 개발자"</h3>
-                <br>
-                <p>안녕하세요! 문제를 해결하는 과정에서 즐거움을 느끼는 개발자입니다. 새로운 기술을 배우는 것을 두려워하지 않으며, 동료와의 커뮤니케이션을 중요하게 생각합니다.</p>
-            </div>
-            <div style="flex: 1; min-width: 300px;">
-                <h3>사용 가능한 기술</h3>
-                <br>
-                <div class="skills-container">
-                    <span class="skill-tag">HTML5</span>
-                    <span class="skill-tag">CSS3</span>
-                    <span class="skill-tag">JavaScript</span>
-                    <span class="skill-tag">React</span>
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">Git</span>
-                </div>
-            </div>
+<section id="about">
+    <h2>소개 & 스킬</h2>
+    <div class="about-container">
+        <div class="about-text" style="flex: 1; min-width: 300px;">
+            <h3>"성장의 깊이를 더하는 개발자"</h3>
+            <p>단순한 기능 구현을 넘어, 코드가 만들어내는 가치에 집중합니다. 검푸른 바다처럼 깊이 있는 지식을 탐구하고, 그 안에서 명확한 해결책을 찾아내는 과정을 즐깁니다.</p>
+            <p>새로운 기술을 배우는 것을 두려워하지 않으며, 동료와의 커뮤니케이션을 통해 더 나은 결과를 만들어냅니다.</p>
         </div>
-    </section>
-
-    <section id="projects">
-        <h2>💻 내 프로젝트</h2>
-        <div class="project-grid">
-            <article class="project-card">
-                <div class="card-img">프로젝트 이미지 1</div>
-                <div class="card-body">
-                    <h3>웹 사이트 개발 프로젝트</h3>
-                    <p>React와 Gatsby를 활용하여 만든 정적 블로그 사이트입니다. 마크다운으로 글을 작성할 수 있습니다.</p>
-                    <a href="#" style="color:var(--primary-color); font-weight:bold;">자세히 보기 &rarr;</a>
-                </div>
-            </article>
-
-            <article class="project-card">
-                <div class="card-img">프로젝트 이미지 2</div>
-                <div class="card-body">
-                    <h3>투두 리스트 앱</h3>
-                    <p>JavaScript의 LocalStorage 기능을 활용하여 데이터가 저장되는 할 일 관리 앱입니다.</p>
-                    <a href="#" style="color:var(--primary-color); font-weight:bold;">자세히 보기 &rarr;</a>
-                </div>
-            </article>
-
-            <article class="project-card">
-                <div class="card-img">프로젝트 이미지 3</div>
-                <div class="card-body">
-                    <h3>날씨 정보 웹사이트</h3>
-                    <p>OpenWeather API를 연동하여 실시간 날씨 정보를 보여주는 웹사이트입니다.</p>
-                    <a href="#" style="color:var(--primary-color); font-weight:bold;">자세히 보기 &rarr;</a>
-                </div>
-            </article>
-        </div>
-    </section>
-
-    <section id="contact">
-        <h2>📧 연락하기</h2>
-        <div class="contact-info">
-            <p>함께 일하고 싶으시거나 궁금한 점이 있으다면 언제든 연락주세요.</p>
+        <div style="flex: 1; min-width: 300px;">
+            <h3>기술 스택</h3>
             <br>
+            <div>
+                <span class="skill-tag">HTML5</span>
+                <span class="skill-tag">CSS3</span>
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">JAVA</span>
+                <span class="skill-tag">DB</span>
+                <span class="skill-tag">Cisco</span>
+                <span class="skill-tag">Linux</span>
+                <span class="skill-tag">Window</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="projects">
+    <h2>내 프로젝트</h2>
+    <div class="project-grid">
+        <article class="project-card">
+            <div class="card-img">프로젝트 이미지 1</div>
+            <div class="card-body">
+                <h3>틈새빛 웹 개발 프로젝트</h3>
+                <p>HTML, CSS, JS를 사용해 사이트의 구조를 잡고 JAVA와 Apache를 사용해 서비스가 실제로 작동하도록 진행한 프로젝트입니다.</p>
+                <a href="./app/web_project.html" class="project-link">자세히 보기 &rarr;</a>
+            </div>
+        </article>
+
+        <article class="project-card">
+            <div class="card-img">프로젝트 이미지 2</div>
+            <div class="card-body">
+                <h3>병원 내 네트워크 인프라 및 서비스 구축</h3>
+                <p>Packet Tracer와 GNS를 사용하여 네트워크 인프라를 구축하고 Linux 및 Window서버를 활용하여 사이트 서비스를 구축한 프로젝트입니다.</p>
+                <a href="./app/semi_project.html" class="project-link">자세히 보기 &rarr;</a>
+            </div>
+        </article>
+
+        <article class="project-card">
+            <div class="card-img">프로젝트 이미지 3</div>
+            <div class="card-body">
+                <h3>불펜토크 취약점 진단 및 모의해킹</h3>
+                <p>고객사의 기존 취약했던 인프라를 개선하고, Linux와 Window를 사용해 기존 서버 보완 및 서버 추가, 웹 방화벽 및 보안장비를 구비해 진행한 프로젝트입니다.</p>
+                <a href="./app/bullpen_project.html" class="project-link">자세히 보기 &rarr;</a>
+            </div>
+        </article>
+    </div>
+</section>
+
+<section id="contact">
+    <h2>연락하기</h2>
+    <div class="contact-box">
+        <p>새로운 기회와 기술적인 대화는 언제나 환영합니다.<br>
+           궁금한 점이 있으시다면 언제든 편하게 연락 주세요.</p>
+        <br>
+        <div style="margin-bottom: 30px;">
             <p><strong>Email:</strong> rladyd8877@naver.com</p>
             <p><strong>GitHub:</strong> github.com/YONGMUN01</p>
-            <br>
-            <a href="mailto:rladyd8877@naver.com" class="btn">메일 보내기</a>
         </div>
-    </section>
+        <a href="mailto:rladyd8877@naver.com" class="btn">메일 보내기</a>
+    </div>
+</section>
 
-    <footer>
-        <p>&copy; 2024 Kim Yong Moon. All rights reserved.</p>
-    </footer>
+<footer>
+    <p>Designed & Built by Kim Yong Moon<br>&copy; 2025 All rights reserved.</p>
+</footer>
+
+<script>
+    const headerOffset = 80; // header 높이
+
+    function easeInOutCubic(t) {
+        return t < 0.5
+            ? 4 * t * t * t
+            : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    function smoothScrollTo(targetY, duration = 900) {
+        const startY = window.pageYOffset;
+        const distance = targetY - startY;
+        let startTime = null;
+
+        function animation(currentTime) {
+            if (!startTime) startTime = currentTime;
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easing = easeInOutCubic(progress);
+
+            window.scrollTo(0, startY + distance * easing);
+
+            if (elapsed < duration) {
+                requestAnimationFrame(animation);
+            }
+        }
+
+        requestAnimationFrame(animation);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', e => {
+            e.preventDefault();
+
+            const targetId = anchor.getAttribute('href');
+            const target = document.querySelector(targetId);
+
+            if (!target) return;
+
+            const targetPosition =
+                target.getBoundingClientRect().top +
+                window.pageYOffset -
+                headerOffset;
+
+            smoothScrollTo(targetPosition);
+        });
+    });
+</script>
 
 </body>
 </html>
